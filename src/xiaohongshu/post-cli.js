@@ -29,14 +29,14 @@ const SCHEMA = {
       type: "number",
       default: 0,
       transform: (v) => Number(v),
-      desc: "笔记数量, 0-10000; 0 表示只取博主信息和互动数据",
+      desc: "笔记数量, 0-10000；包月最多 30；0 表示只取博主信息和互动数据",
     },
   },
   positionalKey: "url",
 };
 
 const AUTH_MESSAGE =
-  "GUAIKEI_API_TOKEN 未配置或格式无效。须为 16-256 位字母、数字、下划线或连字符";
+  "GUAIKEI_API_TOKEN 未配置或格式无效。须为 16-256 位字母、数字、下划线或连字符; 可通过 https://www.guaikei.com 自助开通";
 
 const URL_MESSAGE =
   "无法识别博主主页链接。支持: https://www.xiaohongshu.com/user/profile/{user_id}、https://xhslink.com/o/*、https://xhslink.cn/o/*、https://xhslink.com/m/*、https://xhslink.cn/m/*，或 24 / 29 位 user_id";
@@ -54,6 +54,7 @@ function printHelp() {
       "\n\n注意:\n" +
       "  - 这是博主主页链接，不是笔记链接\n" +
       "  - 不传 --limit 时默认为 0，只返回博主信息和互动数据\n" +
+      "  - 数量 0-10000；包月 Token 实际最多 30（0 = 只要博主互动数据），超限返回 PLAN_LIMIT\n" +
       "  - 数量若不在 0-10000，命令会直接失败，不会改成默认值后继续请求\n",
   );
 }

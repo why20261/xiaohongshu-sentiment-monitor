@@ -6,7 +6,7 @@
 
 > **能力补充**：只读公开数据，关键词 / 笔记链接 / 博主主页都能查；输出结构化 JSON，装进 Agent 就能用人话说。
 
-开通[小红书数据](https://www.guaikei.com) TOKEN · 也可以加微信 `13395823479`（备注：小红书技能）
+开通[小红书定向舆情监测助手](https://www.guaikei.com) TOKEN · 也可以加微信 `13395823479`（备注：小红书技能）
 
 ---
 
@@ -41,7 +41,7 @@
 
 **1. 开通 TOKEN**
 
-到[小红书竞品分析助手官网](https://www.guaikei.com)开通，或微信 `13395823479`（备注：小红书技能）。TOKEN 是 16–256 位的字符串。
+到[小红书定向舆情监测助手官网](https://www.guaikei.com)开通。TOKEN 是 16–256 位的字符串。
 
 **2. 配到环境变量**
 
@@ -88,7 +88,7 @@ node src/xiaohongshu/search-cli.js --keyword "露营装备" --type 2 --sort 2 --
     "limit": 20
   },
   "metadata": {
-    "skill_version": "1.2.0",
+    "skill_version": "1.2.1",
     "runtime_version": "22.x",
     "execution_time": 34210
   },
@@ -130,10 +130,10 @@ node src/xiaohongshu/search-cli.js --keyword "露营装备" --type 2 --sort 2 --
 不用。这个技能不碰你的账号，也不做发布、点赞、评论、关注。
 
 **数据从哪来？**
-经[小红书公开数据接口](https://www.guaikei.com)返回，只覆盖小红书公开可见的内容。除了关键词和链接这类查询参数，不上传你电脑上的其他数据。结果请在个人或团队内部分析时使用。
+经[小红书定向舆情监测助手](https://www.guaikei.com)返回，只覆盖小红书公开可见的内容。除了关键词和链接这类查询参数，不上传你电脑上的其他数据。结果请在个人或团队内部分析时使用。
 
 **一定要 TOKEN 吗？**
-要。接口按 TOKEN 调用。开通入口在[小红书定向舆情监测助手官网](https://www.guaikei.com)，也可以微信 `13395823479`。
+要。接口按 TOKEN 调用。开通入口在[小红书定向舆情监测助手官网](https://www.guaikei.com)。
 
 **查一条要等多久？**
 小批量通常一轮查询就能回来。条数大、或者任务还在处理时，命令会继续等，屏幕上的「处理中」不是失败。等命令结束再看结果。
@@ -144,24 +144,30 @@ node src/xiaohongshu/search-cli.js --keyword "露营装备" --type 2 --sort 2 --
 **我在国内，要代理吗？**
 不用。
 
+**单次能拉多少条？**
+技能侧硬上限 10000 条/次（按量 Token）。**包月 Token** 搜索最多 40、作品最多 30、评论最多 20，超限返回 `PLAN_LIMIT`（退出码 1），不要当网络错误重试。具体计费口径以官网说明为准。
+
+**报错 `PLAN_LIMIT` / 提示包月受限？**
+降低 `--limit` 后须用户同意再跑，或到[小红书定向舆情监测助手官网](https://www.guaikei.com)升级按量；**禁止同参重试**。
+
 ---
 
 ## 边界
 
 - 公开笔记、评论、博主信息。私密、草稿、仅粉丝可见、创作者后台、商业化后台都不支持
 - 不做写操作
-- 单次最多 1 万条。用户没说要多少时，搜索默认 20，评论默认 10，博主默认只看资料
+- 按量最多 1 万条；包月更低（搜索 40 / 作品 30 / 评论 20）。用户没说要多少时，搜索默认 20，评论默认 10，博主默认只看资料
 
 ---
 
 ## 再跑几条
 
 ```bash
-# 一天内最新
-node src/xiaohongshu/search-cli.js --keyword "多巴胺穿搭" --sort 1 --time 1 --limit 50
+# 一天内最新（包月勿超 40）
+node src/xiaohongshu/search-cli.js --keyword "多巴胺穿搭" --sort 1 --time 1 --limit 40
 
-# 近 30 天评论
-node src/xiaohongshu/comment-cli.js --url "https://www.xiaohongshu.com/explore/xxx" --expired_at 30 --limit 200
+# 近 30 天评论（包月勿超 20）
+node src/xiaohongshu/comment-cli.js --url "https://www.xiaohongshu.com/explore/xxx" --expired_at 30 --limit 20
 
 # 博主近 30 条作品
 node src/xiaohongshu/post-cli.js --url "https://www.xiaohongshu.com/user/profile/xxx" --limit 30
@@ -178,6 +184,6 @@ node src/xiaohongshu/post-cli.js --url "https://www.xiaohongshu.com/user/profile
 
 ## 现在就可以开通
 
-去[小红书洞察分析助手官网](https://www.guaikei.com)开通 TOKEN
+去[小红书定向舆情监测助手官网](https://www.guaikei.com)
 
-微信 `13395823479`（备注：小红书技能）· 问题反馈 [GitHub Issues](https://github.com/um-why/xiaohongshu-openclaw-skill/issues)
+问题反馈 [GitHub Issues](https://github.com/um-why/xiaohongshu-openclaw-skill/issues)
